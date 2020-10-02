@@ -1,9 +1,8 @@
 const { GraphQLServer } = require('graphql-yoga');
 const { PrismaClient } = require('@prisma/client');
-const Query = require('../graphql/resolvers/Query')
-const Mutation = require('../graphql/resolvers/Mutation')
-const Produce = require('../graphql/resolvers/Produce')
-
+const Query = require('../graphql/resolvers/Query');
+const Mutation = require('../graphql/resolvers/Mutation');
+const Produce = require('../graphql/resolvers/Produce');
 
 const resolvers = {
   Query,
@@ -16,11 +15,11 @@ const prisma = new PrismaClient();
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
   resolvers,
-  context: request => {
+  context: (request) => {
     return {
       ...request,
       prisma,
-    }
+    };
   },
 });
 

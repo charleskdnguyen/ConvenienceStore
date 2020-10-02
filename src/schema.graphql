@@ -2,7 +2,11 @@ type Query {
   getClients: [Client!]!
   getClient(id: ID!): Client!
   getProduces: [Produce!]!
-  getProduce: Produce!
+  getProduce(id: ID!): Produce!
+  getStores: [Store!]!
+  getStore(id: ID!): Store!
+  getReceipt(id: ID!): Receipt!
+  getReceipts: [Receipt!]!
 }
 
 type Mutation {
@@ -16,7 +20,7 @@ type Mutation {
 
   deleteClient(
     id: ID!
-  ): Client
+  ): Client!
 
   updateClient(
     id: ID!
@@ -25,7 +29,61 @@ type Mutation {
     age: Int,
     email: String,
     phone: String
-  ): Client
+  ): Client!
+
+  addProduce(
+    name: String
+    quantity: Int
+    price: Float
+    foodtype: String
+  ): Produce
+
+  deleteProduce(
+    id: ID!
+  ): Produce!
+
+  updateProduce(
+    id: ID!
+    quantity: Int!
+    price: Float!
+  ): Produce!
+
+  addStore(
+    name: String!
+    address: String!
+    email: String!
+    storeowner: String!
+    city: String!
+    province: String!
+  ): Store!
+
+  deleteStore(
+    id: ID!
+  ): Store!
+
+  updateStore(
+  id: ID!
+  name: String!
+  address: String!
+  email: String!
+  storeowner: String!
+  city: String!
+  province: String!
+  ): Store!
+
+  addReceipt(
+    subtotal: Float!
+    total: Float!
+  ): Receipt!
+
+  updateReceipt(
+    subtotal: Float!
+    total: Float!
+  ): Receipt!
+
+  deleteReceipt(
+    id: ID!
+  ): Receipt!
 }
 
 type Client {
@@ -37,26 +95,31 @@ type Client {
   phone: String
   receipts: [Receipt!]!
 }
-
+"""
+Should be Store! and check update/add
+"""
 type Produce {
   id: ID!
   name: String!
   quantity: Int!
   price: Float!
   foodtype: String!
-  store: Store!
-  receipts: [Receipt!]!
+  store: Store
+  receipts: [Receipt!]
 }
 
 type Receipt {
   id: ID!
-  subTotal: Float
+  subtotal: Float
   total: Float
   client: Client!
   store: Store!
   produces: [Produce!]!
 }
 
+"""
+Should be Store! and check update/add
+"""
 type Store {
   id: ID!
   name: String!
@@ -65,5 +128,5 @@ type Store {
   storeowner: String!
   city: String!
   province: String!
-  receipts: [Receipt!]
+  receipts: [Receipt!]!
 }
