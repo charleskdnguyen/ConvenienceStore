@@ -1,0 +1,95 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateField",
+      "model": "Produce",
+      "field": "storeid",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Produce",
+      "field": "storeId"
+    },
+    {
+      "tag": "UpdateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Produce",
+          "field": "store"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "newValue": "[storeid]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Receipt",
+      "field": "clientid",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Receipt",
+      "field": "storeid",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Receipt",
+      "field": "clientId"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Receipt",
+      "field": "storeId"
+    },
+    {
+      "tag": "UpdateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Receipt",
+          "field": "client"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "newValue": "[clientid]"
+    },
+    {
+      "tag": "UpdateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Receipt",
+          "field": "store"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "newValue": "[storeid]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Store",
+      "field": "storeowner",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Store",
+      "field": "storeOwner"
+    }
+  ]
+}

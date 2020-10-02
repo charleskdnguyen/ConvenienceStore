@@ -1,0 +1,45 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "DeleteField",
+      "model": "Client",
+      "field": "createdAt"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Client",
+      "field": "updatedAt"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Produce",
+      "field": "createdAt"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Produce",
+      "field": "updatedAt"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Receipt",
+      "field": "createdAt"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Receipt",
+      "field": "updatedAt"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Store",
+      "field": "createdAt"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Store",
+      "field": "updatedAt"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+//npx prisma migrate save --experimental (save prisma data model)
+//npx prisma migrate up --experimental (apply migration to database)
+//npx prisma generate (Regenerate prisma client to see new changes added and expose CRUD queries to the new models)
+
+// 1. Manually adjust your Prisma data model.
+// 2. Migrate your database using the prisma migrate CLI commands we covered.
+// 3. (Re-)generate Prisma Client
+// 4. Use Prisma Client in your application code to access your database.
+
+datasource db {
+  provider = "postgresql"
+  url = "***"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Client {
+  id Int @id @default(autoincrement())
+  first_name String
+  last_name String
+  age Int
+  email String
+  phone String
+
+  // Relations
+  receipts Receipt[]
+
+  // Logs
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Produce {
+  id Int @id @default(autoincrement())
+  name String
+  quantity Int
+  price Float
+  foodtype String
+
+  // Relations
+  store Store @relation(fields: [storeid], references: [id])
+  storeid Int
+  receipt Receipt[] // Many to many
+
+  // Logs
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Receipt {
+  id Int @id @default(autoincrement())
+  subtotal Float
+  total Float
+
+  // Relations
+  client Client @relation(fields: [clientid], references: [id])
+  clientid Int
+  store Store @relation(fields: [storeid], references: [id])
+  storeid Int
+  produces Produce[] // Many to many
+
+  // Logs
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Store {
+  id Int @id @default(autoincrement())
+  name String
+  address String
+  email String
+  storeowner String
+  city String
+  province String
+
+  // Relations
+  receipts Receipt[]
+
+  // Logs
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

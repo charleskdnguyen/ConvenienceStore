@@ -1,0 +1,69 @@
+type Query {
+  getClients: [Client!]!
+  getClient(id: ID!): Client!
+  getProduces: [Produce!]!
+  getProduce: Produce!
+}
+
+type Mutation {
+  addClient(
+    first_name: String!,
+    last_name: String!,
+    age: Int,
+    email: String,
+    phone: String
+  ): Client!
+
+  deleteClient(
+    id: ID!
+  ): Client
+
+  updateClient(
+    id: ID!
+    first_name: String,
+    last_name: String,
+    age: Int,
+    email: String,
+    phone: String
+  ): Client
+}
+
+type Client {
+  id: ID!
+  first_name: String!
+  last_name: String!
+  age: Int
+  email: String
+  phone: String
+  receipts: [Receipt!]!
+}
+
+type Produce {
+  id: ID!
+  name: String!
+  quantity: Int!
+  price: Float!
+  foodtype: String!
+  store: Store!
+  receipts: [Receipt!]!
+}
+
+type Receipt {
+  id: ID!
+  subTotal: Float
+  total: Float
+  client: Client!
+  store: Store!
+  produces: [Produce!]!
+}
+
+type Store {
+  id: ID!
+  name: String!
+  address: String!
+  email: String!
+  storeowner: String!
+  city: String!
+  province: String!
+  receipts: [Receipt!]
+}
