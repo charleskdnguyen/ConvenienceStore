@@ -39,7 +39,7 @@ async function getReceipt(parent, args, context, info) {
     where: {
       id: Number(args.id),
     }
-  })
+  });
 }
 
 async function getReceipts(parent, args, context, info) {

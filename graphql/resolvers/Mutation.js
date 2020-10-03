@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const { APP_SECRET, getClientId } = require('../../src/utils');
 
 async function signup(parent, args, context, info) {
-  const password = await bcrypt.hash(args.password, 10)
+  const password = await bcrypt.hash(args.password, 10);
 
   const client = await context.prisma.client.create({
     data: {
@@ -194,6 +194,11 @@ async function updateStore(parent, args, context, info) {
 //! Should have client, store and produces
 async function addReceipt(parent, args, context, info) {
   const clientId = getClientId(context);
+  const allProduces = await context.prisma.produce.findMany();
+
+  const mappedIds = await args.produces.map(produce => {
+    return { id: produce}
+  });
 
   return await context.prisma.receipt.create({
     data: {
@@ -210,9 +215,7 @@ async function addReceipt(parent, args, context, info) {
         }
       },
       produces: {
-        connect: {
-          id: 1, //! Find a way to connect array
-        }
+        connect: mappedIds,
       },
     },
   });

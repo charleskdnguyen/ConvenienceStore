@@ -82,6 +82,7 @@ type Mutation {
     total: Float!
     clientid: Int!
     storeid: Int!
+    produces: [Int!]!
   ): Receipt!
 
   updateReceipt(
@@ -112,7 +113,7 @@ type Produce {
   price: Float!
   foodtype: String!
   store: Store!
-  receipts: [Receipt!]!
+  receipts: [Receipt!]
 }
 
 type Receipt {
