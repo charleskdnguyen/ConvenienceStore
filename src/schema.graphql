@@ -74,6 +74,8 @@ type Mutation {
   addReceipt(
     subtotal: Float!
     total: Float!
+    clientid: Int """Only temporary"""
+    storeid: Int """Only temporary"""
   ): Receipt!
 
   updateReceipt(
@@ -105,7 +107,7 @@ type Produce {
   price: Float!
   foodtype: String!
   store: Store
-  receipts: [Receipt!]
+  receipts: [Receipt!]!
 }
 
 type Receipt {

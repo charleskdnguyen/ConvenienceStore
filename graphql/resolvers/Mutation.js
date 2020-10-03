@@ -150,8 +150,23 @@ async function updateStore(parent, args, context, info) {
 async function addReceipt(parent, args, context, info) {
   return await context.prisma.receipt.create({
     data: {
-      subtotal: args.subtotal,
+      subtotal: args.subtotal, 
       total: args.total,
+      client: {
+        connect: {
+          id: args.clientid,
+        }
+      },
+      store: {
+        connect: {
+          id: args.storeid,
+        }
+      },
+      produces: {
+        connect: {
+          id: 4,
+        }
+      },
     },
   });
 }
