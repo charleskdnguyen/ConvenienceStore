@@ -10,21 +10,24 @@ type Query {
 }
 
 type Mutation {
-  addClient(
+  signup(
     first_name: String!
     last_name: String!
     age: Int
     email: String!
     phone: String
     password: String!
-  ): Client!
+  ): AuthPayload
+
+  login(email: String!
+    password: String!
+  ): AuthPayload
 
   deleteClient(
     id: ID!
   ): Client!
 
   updateClient(
-    id: ID!
     first_name: String
     last_name: String
     age: Int
@@ -131,4 +134,9 @@ type Store {
   city: String!
   province: String!
   receipts: [Receipt!]!
+}
+
+type AuthPayload {
+  token: String
+  client: Client
 }
