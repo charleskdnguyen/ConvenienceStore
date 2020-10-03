@@ -96,7 +96,7 @@ type Client {
   age: Int
   email: String
   phone: String
-  receipts: [Receipt!]!
+  receipts: [Receipt!]
 }
 """
 Should be Store! and check update/add

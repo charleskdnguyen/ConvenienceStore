@@ -6,6 +6,7 @@ async function addClient(parent, args, context, info) {
       age: args.age,
       email: args.email,
       phone: args.phone,
+      receipts: args.receipts || [], //! FIX: Return empty array
     },
   });
 }
