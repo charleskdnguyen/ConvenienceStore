@@ -24,7 +24,7 @@ async function produces(parent, args, context, info) {
         id: parent.id,
       },
     })
-    .produces();
+    .produces() || [];
 }
 
 module.exports = {

@@ -6,7 +6,7 @@ async function addClient(parent, args, context, info) {
       age: args.age,
       email: args.email,
       phone: args.phone,
-      receipts: args.receipts || [], //! FIX: Return empty array
+      receipts: args.receipts,
     },
   });
 }
@@ -156,7 +156,7 @@ async function updateStore(parent, args, context, info) {
 async function addReceipt(parent, args, context, info) {
   return await context.prisma.receipt.create({
     data: {
-      subtotal: args.subtotal, 
+      subtotal: args.subtotal,
       total: args.total,
       client: {
         connect: {
@@ -170,7 +170,7 @@ async function addReceipt(parent, args, context, info) {
       },
       produces: {
         connect: {
-          id: 4,
+          id: 20, //! Find a way to connect array
         }
       },
     },
@@ -202,7 +202,7 @@ async function updateReceipt(parent, args, context, info) {
       subtotal: foundReceipt.subtotal === args.subtotal ? foundReceipt.subtotal : args.subtotal,
       total: foundReceipt.total === args.total ? foundReceipt.total : args.total,
     },
-  })
+  });
 }
 
 module.exports = {

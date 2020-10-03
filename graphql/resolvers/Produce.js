@@ -15,7 +15,7 @@ async function receipts(parent, args, context, info) {
         id: Number(parent.id),
       },
     })
-    .receipts();
+    .receipts() || [];
 }
 
 module.exports = {
