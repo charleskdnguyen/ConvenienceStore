@@ -2,7 +2,7 @@ async function store(parent, args, context, info) {
   return await context.prisma.produce
     .findOne({
       where: {
-        id: Number(parent.id),
+        id: parent.id,
       },
     })
     .store();
@@ -10,9 +10,9 @@ async function store(parent, args, context, info) {
 
 async function receipts(parent, args, context, info) {
   return await context.prisma.produce
-    .findMany({
+    .findOne({
       where: {
-        id: Number(parent.id),
+        id: parent.id,
       },
     })
     .receipts() || [];

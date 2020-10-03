@@ -1,8 +1,8 @@
 async function receipts(parent, args, context, info) {
   return await context.prisma.client
-    .findMany({
+    .findOne({
       where: {
-        id: Number(parent.id),
+        id: parent.id,
       },
     })
     .receipts() || [];
