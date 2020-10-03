@@ -1,15 +1,53 @@
-async function addClient(parent, args, context, info) {
-  return await context.prisma.client.create({
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const { APP_SECRET, getClientId } = require('../../src/utils');
+
+async function signup(parent, args, context, info) {
+  const password = await bcrypt.hash(args.password, 10)
+
+  const client = await context.prisma.client.create({
     data: {
       first_name: args.first_name,
       last_name: args.last_name,
       age: args.age,
       email: args.email,
       phone: args.phone,
-      password: args.password,
+      password: password,
       receipts: args.receipts,
+    }
+  });
+
+  const token = jwt.sign({
+    clientId: client.id,
+  }, APP_SECRET);
+
+  return {
+    token,
+    client,
+  };
+}
+
+async function login(parent, args, context, info) {
+  const client = await context.prisma.client.findOne({
+    where: {
+      email: args.email,
     },
   });
+
+  if (!client) throw new Error(`No such user found!`);
+
+  const valid = await bcrypt.compare(args.password, client.password);
+
+  if (!valid) throw new Error(`Invalid password!`);
+
+  const token = jwt.sign({
+    clientId: client.id
+  }, APP_SECRET);
+
+  return {
+    token,
+    client,
+  };
 }
 
 async function deleteClient(parent, args, context, info) {
@@ -21,17 +59,19 @@ async function deleteClient(parent, args, context, info) {
 }
 
 async function updateClient(parent, args, context, info) {
+  const clientId = getClientId(context);
+
   const foundUser = await context.prisma.client.findOne({
     where: {
-      id: Number(args.id),
+      id: Number(clientId),
     },
   });
 
-  if (!foundUser) throw new Error(`Client with id ${args.id} not found.`);
+  if (!foundUser) throw new Error(`No user found!`);
 
   return await context.prisma.client.update({
     where: {
-      id: Number(args.id),
+      id: clientId,
     },
     data: {
       first_name:
@@ -153,13 +193,15 @@ async function updateStore(parent, args, context, info) {
 
 //! Should have client, store and produces
 async function addReceipt(parent, args, context, info) {
+  const clientId = getClientId(context);
+
   return await context.prisma.receipt.create({
     data: {
       subtotal: args.subtotal,
       total: args.total,
       client: {
         connect: {
-          id: args.clientid,
+          id: clientId,
         }
       },
       store: {
@@ -205,7 +247,8 @@ async function updateReceipt(parent, args, context, info) {
 }
 
 module.exports = {
-  addClient,
+  signup,
+  login,
   deleteClient,
   updateClient,
   addProduce,
