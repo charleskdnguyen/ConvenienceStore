@@ -8,7 +8,7 @@ async function store(parent, args, context, info) {
     .store();
 }
 
-async function receiptscontainingproduce(parent, args, context, info) {
+async function receiptsContainingProduce(parent, args, context, info) {
   return await context.prisma.produce
     .findOne({
       where: {
@@ -20,5 +20,5 @@ async function receiptscontainingproduce(parent, args, context, info) {
 
 module.exports = {
   store,
-  receiptscontainingproduce,
+  receiptsContainingProduce,
 };

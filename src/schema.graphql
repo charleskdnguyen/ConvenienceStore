@@ -113,7 +113,7 @@ type Produce {
   price: Float!
   foodtype: String!
   store: Store!
-  receiptscontainingproduce: [Receipt!]!
+  receiptsContainingProduce: [Receipt!]!
 }
 
 type Receipt {
