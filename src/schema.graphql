@@ -104,6 +104,7 @@ type Client {
   email: String
   phone: String
   receipts: [Receipt!]!
+  password: String!
 }
 
 type Produce {

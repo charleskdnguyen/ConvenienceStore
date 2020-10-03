@@ -39,7 +39,7 @@ model Produce {
   // Relations
   store   Store     @relation(fields: [storeid], references: [id])
   storeid Int
-  receipt Receipt[] // Many to many
+  receiptsContainingProduce Receipt[] // Many to many
 }
 
 model Receipt {

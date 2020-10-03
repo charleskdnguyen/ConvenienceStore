@@ -15,7 +15,7 @@ async function receiptsContainingProduce(parent, args, context, info) {
         id: parent.id,
       },
     })
-    .receipt() || [];
+    .receiptsContainingProduce() || [];
 }
 
 module.exports = {
