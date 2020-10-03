@@ -1,50 +1,100 @@
-async function getClients(parent, args, context, info) {
-  return await context.prisma.client.findMany();
+const { APP_SECRET, getClientId } = require('../../src/utils')
+
+getClients = async (parent, args, context, info) => {
+  const clientId = getClientId(context);
+
+  return await context
+    .prisma
+    .client
+    .findMany();
 }
 
-async function getClient(parent, args, context, info) {
-  return await context.prisma.client.findOne({
-    where: {
-      id: Number(args.id),
-    },
-  });
+
+getClient = async (parent, args, context, info) => {
+  const clientId = getClientId(context);
+
+  return await context
+    .prisma
+    .client
+    .findOne({
+      where: {
+        id: Number(args.id),
+      },
+    });
 }
 
-async function getProduces(parent, args, context, info) {
-  return await context.prisma.produce.findMany();
+
+getProduces = async (parent, args, context, info) => {
+  const clientId = getClientId(context);
+
+  return await context
+    .prisma
+    .produce
+    .findMany();
 }
 
-async function getProduce(parent, args, context, info) {
-  return await context.prisma.produce.findOne({
-    where: {
-      id: Number(args.id),
-    },
-  });
+
+getProduce = async (parent, args, context, info) => {
+  const clientId = getClientId(context);
+
+  return await context
+    .prisma
+    .produce
+    .findOne({
+      where: {
+        id: Number(args.id),
+      },
+    });
 }
 
-async function getStore(parent, args, context, info) {
-  return await context.prisma.store.findOne({
-    where: {
-      id: Number(args.id),
-    },
-  });
+
+getStore = async (parent, args, context, info) => {
+  const clientId = getClientId(context);
+
+  return await context
+    .prisma
+    .store
+    .findOne({
+      where: {
+        id: Number(args.id),
+      },
+    });
 }
 
-async function getStores(parent, args, context, info) {
-  return await context.prisma.store.findMany();
+
+getStores = async (parent, args, context, info) => {
+  const clientId = getClientId(context);
+
+  return await context
+    .prisma
+    .store
+    .findMany();
 }
 
-async function getReceipt(parent, args, context, info) {
-  return await context.prisma.receipt.findOne({
-    where: {
-      id: Number(args.id),
-    }
-  });
+
+getReceipt = async (parent, args, context, info) => {
+  const clientId = getClientId(context);
+
+  return await context
+    .prisma
+    .receipt
+    .findOne({
+      where: {
+        id: Number(args.id),
+      }
+    });
 }
 
-async function getReceipts(parent, args, context, info) {
-  return await context.prisma.receipt.findMany();
+
+getReceipts = async (parent, args, context, info) => {
+  const clientId = getClientId(context);
+
+  return await context
+    .prisma
+    .receipt
+    .findMany();
 }
+
 
 module.exports = {
   getClients,

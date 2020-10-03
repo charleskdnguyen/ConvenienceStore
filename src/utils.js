@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const APP_SECRET = 'This-is-a-convienice-app-created-in-2020';
+const APP_SECRET = 'This-is-a-convenience-app-created-in-2020';
 
 function getClientId(context) {
   const Authorization = context.request.get('Authorization');
@@ -17,4 +17,4 @@ function getClientId(context) {
 module.exports = {
   getClientId,
   APP_SECRET,
-}
+};

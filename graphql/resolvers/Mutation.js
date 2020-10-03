@@ -191,13 +191,11 @@ async function updateStore(parent, args, context, info) {
   });
 }
 
-//! Should have client, store and produces
 async function addReceipt(parent, args, context, info) {
   const clientId = getClientId(context);
-  const allProduces = await context.prisma.produce.findMany();
 
   const mappedIds = await args.produces.map(produce => {
-    return { id: produce}
+    return { id: produce };
   });
 
   return await context.prisma.receipt.create({
