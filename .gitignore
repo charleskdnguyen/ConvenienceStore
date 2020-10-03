@@ -2,3 +2,4 @@
 requests.txt
 .idea/
 .idea/workspace.xml
+prisma/migrations

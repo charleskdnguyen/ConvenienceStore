@@ -6,20 +6,18 @@ async function addClient(parent, args, context, info) {
       age: args.age,
       email: args.email,
       phone: args.phone,
+      password: args.password,
+      receipts: args.receipts,
     },
   });
 }
 
 async function deleteClient(parent, args, context, info) {
-  try {
-    return await context.prisma.client.delete({
-      where: {
-        id: Number(args.id),
-      },
-    });
-  } catch (err) {
-    console.log(err);
-  }
+  return await context.prisma.client.delete({
+    where: {
+      id: Number(args.id),
+    },
+  });
 }
 
 async function updateClient(parent, args, context, info) {
@@ -29,7 +27,7 @@ async function updateClient(parent, args, context, info) {
     },
   });
 
-  if (foundUser) throw new Error(`Receipt with id ${args.id} not found.`);
+  if (!foundUser) throw new Error(`Client with id ${args.id} not found.`);
 
   return await context.prisma.client.update({
     where: {
@@ -47,6 +45,7 @@ async function updateClient(parent, args, context, info) {
       email: foundUser.email === args.email ? foundUser.email : args.email,
       age: foundUser.age === args.age ? foundUser.age : args.age,
       phone: foundUser.phone === args.phone ? foundUser.phone : args.phone,
+      password: foundUser.password === args.password ? foundUser.password : args.password,
     },
   });
 }
@@ -58,6 +57,11 @@ async function addProduce(parent, args, context, info) {
       quantity: args.quantity,
       price: args.price,
       foodtype: args.foodtype,
+      store: {
+        connect: {
+          id: args.storeid,
+        }
+      }
     },
   });
 }
@@ -71,25 +75,21 @@ async function deleteProduce(parent, args, context, info) {
 }
 
 async function updateProduce(parent, args, context, info) {
-  const foundProduce = context.prisma.produce.findOne({
+  const foundProduce = await context.prisma.produce.findOne({
     where: {
       id: Number(args.id),
     },
   });
 
-  if (foundProduce) throw new Error(`Receipt with id ${args.id} not found.`);
+  if (!foundProduce) throw new Error(`Produce with id ${args.id} not found.`);
 
   return await context.prisma.produce.update({
     where: {
       id: Number(args.id),
     },
     data: {
-      quantity:
-        foundProduce.quantity === args.quantity
-          ? foundProduce.quantity
-          : args.quantity,
-      price:
-        foundProduce.price === args.price ? foundProduce.price : args.price,
+      quantity: foundProduce.quantity === args.quantity ? foundProduce.quantity : args.quantity,
+      price: foundProduce.price === args.price ? foundProduce.price : args.price,
     },
   });
 }
@@ -100,6 +100,7 @@ async function addStore(parent, args, context, info) {
       name: args.name,
       address: args.address,
       email: args.email,
+      phone: args.phone,
       storeowner: args.storeowner,
       city: args.city,
       province: args.province,
@@ -122,7 +123,7 @@ async function updateStore(parent, args, context, info) {
     },
   });
 
-  if (foundStore) throw new Error(`Receipt with id ${args.id} not found.`);
+  if (!foundStore) throw new Error(`Store with id ${args.id} not found.`);
 
   return await context.prisma.store.update({
     where: {
@@ -142,6 +143,10 @@ async function updateStore(parent, args, context, info) {
         foundStore.province === args.province
           ? foundStore.province
           : args.province,
+      phone:
+        foundStore.phone === args.phone
+          ? foundStore.phone
+          : args.phone,
     },
   });
 }
@@ -152,6 +157,21 @@ async function addReceipt(parent, args, context, info) {
     data: {
       subtotal: args.subtotal,
       total: args.total,
+      client: {
+        connect: {
+          id: args.clientid,
+        }
+      },
+      store: {
+        connect: {
+          id: args.storeid,
+        }
+      },
+      produces: {
+        connect: {
+          id: 1, //! Find a way to connect array
+        }
+      },
     },
   });
 }
@@ -171,7 +191,7 @@ async function updateReceipt(parent, args, context, info) {
     },
   });
 
-  if (foundReceipt) throw new Error(`Receipt with id ${args.id} not found.`);
+  if (!foundReceipt) throw new Error(`Receipt with id ${args.id} not found.`);
 
   return await context.prisma.receipt.update({
     where: {
@@ -181,7 +201,7 @@ async function updateReceipt(parent, args, context, info) {
       subtotal: foundReceipt.subtotal === args.subtotal ? foundReceipt.subtotal : args.subtotal,
       total: foundReceipt.total === args.total ? foundReceipt.total : args.total,
     },
-  })
+  });
 }
 
 module.exports = {

@@ -21,8 +21,9 @@ model Client {
   first_name String
   last_name  String
   age        Int
-  email      String
   phone      String
+  email      String @unique
+  password   String
 
   // Relations
   receipts Receipt[]
@@ -58,12 +59,13 @@ model Store {
   id         Int    @id @default(autoincrement())
   name       String
   address    String
-  email      String
+  email      String @unique
   storeowner String
   city       String
   province   String
+  phone      String
 
   // Relations
   receipts Receipt[]
-  Produce  Produce[]
+  produces  Produce[]
 }
