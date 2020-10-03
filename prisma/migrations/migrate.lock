@@ -1,7 +1,3 @@
 # Prisma Migrate lockfile v1
 
-20200929234621-init
-20200929235131-modified-produce-type-name
-20200930015457-changed-variables-lowercase
-20200930015705-fix-lowercase
-20200930020014-removed-dates
+20201002224955-init
