@@ -36,6 +36,7 @@ type Mutation {
     quantity: Int
     price: Float
     foodtype: String
+    storeid: Int
   ): Produce
 
   deleteProduce(
@@ -74,8 +75,8 @@ type Mutation {
   addReceipt(
     subtotal: Float!
     total: Float!
-    clientid: Int """Only temporary"""
-    storeid: Int """Only temporary"""
+    clientid: Int
+    storeid: Int
   ): Receipt!
 
   updateReceipt(

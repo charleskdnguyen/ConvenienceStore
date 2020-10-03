@@ -58,6 +58,11 @@ async function addProduce(parent, args, context, info) {
       quantity: args.quantity,
       price: args.price,
       foodtype: args.foodtype,
+      store: {
+        connect: {
+          id: args.storeid,
+        }
+      }
     },
   });
 }
