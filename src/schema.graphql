@@ -63,20 +63,20 @@ type Mutation {
   ): Store!
 
   updateStore(
-  id: ID!
-  name: String!
-  address: String!
-  email: String!
-  storeowner: String!
-  city: String!
-  province: String!
+    id: ID!
+    name: String!
+    address: String!
+    email: String!
+    storeowner: String!
+    city: String!
+    province: String!
   ): Store!
 
   addReceipt(
     subtotal: Float!
     total: Float!
-    clientid: Int
-    storeid: Int
+    clientid: Int!
+    storeid: Int!
   ): Receipt!
 
   updateReceipt(
@@ -98,31 +98,26 @@ type Client {
   phone: String
   receipts: [Receipt!]
 }
-"""
-Should be Store! and check update/add
-"""
+
 type Produce {
   id: ID!
   name: String!
   quantity: Int!
   price: Float!
   foodtype: String!
-  store: Store
+  store: Store!
   receipts: [Receipt!]!
 }
 
 type Receipt {
   id: ID!
-  subtotal: Float
-  total: Float
+  subtotal: Float!
+  total: Float!
   client: Client!
   store: Store!
   produces: [Produce!]!
 }
 
-"""
-Should be Store! and check update/add
-"""
 type Store {
   id: ID!
   name: String!
