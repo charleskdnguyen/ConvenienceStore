@@ -112,9 +112,14 @@ type Produce {
   name: String!
   quantity: Int!
   price: Float!
-  foodtype: String!
+  foodtype: foodtype!
   store: Store!
   receiptsContainingProduce: [Receipt!]!
+}
+
+enum foodtype {
+  FRUIT
+  VEGETABLE
 }
 
 type Receipt {
