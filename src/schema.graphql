@@ -39,7 +39,7 @@ type Mutation {
     name: String
     quantity: Int
     price: Float
-    foodtype: String
+    foodtype: foodtype
     storeid: Int
   ): Produce
 
