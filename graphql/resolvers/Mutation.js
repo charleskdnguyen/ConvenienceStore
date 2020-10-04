@@ -50,6 +50,65 @@ async function login(parent, args, context, info) {
   };
 }
 
+async function addOwner(parent, args, context, info) {
+  const password = await bcrypt.hash(args.password, 10);
+
+  return await context.prisma.owner.create({
+    data: {
+      first_name: args.first_name,
+      last_name: args.last_name,
+      age: args.age,
+      email: args.email,
+      phone: args.phone,
+      password: password,
+      storeowned: {
+        connect: {
+          id: args.storeownedId,
+        }
+      },
+    }
+  });
+}
+
+async function deleteOwner(parent, args, context, info) {
+  return await context.prisma.owner.delete({
+    where: {
+      id: Number(args.id),
+    },
+  });
+}
+
+async function updateOwner(parent, args, context, info) {
+  const clientId = getClientId(context);
+
+  const foundOwner = await context.prisma.owner.findOne({
+    where: {
+      id: Number(args.ownerid)
+    }
+  });
+
+  if (!foundOwner) throw new Error(`Owner with id ${args.id} not found.`);
+
+  return await context.prisma.owner.update({
+    where: {
+      id: Number(args.ownerid),
+    },
+    data: {
+      first_name:
+        foundOwner.first_name === args.first_name
+          ? foundOwner.first_name
+          : args.first_name,
+      last_name:
+        foundOwner.last_name === args.last_name
+          ? foundOwner.last_name
+          : args.last_name,
+      email: foundOwner.email === args.email ? foundOwner.email : args.email,
+      age: foundOwner.age === args.age ? foundOwner.age : args.age,
+      phone: foundOwner.phone === args.phone ? foundOwner.phone : args.phone,
+    },
+  });
+}
+
 async function deleteClient(parent, args, context, info) {
   return await context.prisma.client.delete({
     where: {
@@ -250,6 +309,9 @@ async function updateReceipt(parent, args, context, info) {
 module.exports = {
   signup,
   login,
+  addOwner,
+  deleteOwner,
+  updateOwner,
   deleteClient,
   updateClient,
   addProduce,

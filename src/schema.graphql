@@ -1,4 +1,6 @@
 type Query {
+  getOwners: [Owner!]!
+  getOwner(id: ID!): Owner!
   getClients: [Client!]!
   getClient(id: ID!): Client!
   getProduces: [Produce!]!
@@ -22,6 +24,29 @@ type Mutation {
   login(email: String!
     password: String!
   ): AuthPayload
+
+  addOwner(
+    first_name: String!
+    last_name: String!
+    age: Int
+    email: String!
+    phone: String
+    password: String!
+    storeownedId: Int!
+  ): Owner!
+
+  deleteOwner(
+    id: ID!
+  ): Client!
+
+  updateOwner(
+    first_name: String
+    last_name: String
+    age: Int
+    email: String
+    phone: String
+    ownerid: Int!
+  ): Client!
 
   deleteClient(
     id: ID!
@@ -96,15 +121,36 @@ type Mutation {
   ): Receipt!
 }
 
-type Client {
+interface Person {
   id: ID!
   first_name: String!
   last_name: String!
   age: Int
   email: String
   phone: String
-  receipts: [Receipt!]!
   password: String!
+}
+
+type Owner implements Person {
+  id: ID!
+  first_name: String!
+  last_name: String!
+  age: Int
+  email: String
+  phone: String
+  password: String!
+  storeowned: Store!
+}
+
+type Client implements Person {
+  id: ID!
+  first_name: String!
+  last_name: String!
+  age: Int
+  email: String
+  phone: String
+  password: String!
+  receipts: [Receipt!]!
 }
 
 type Produce {

@@ -6,6 +6,7 @@ const Produce = require('../graphql/resolvers/Produce');
 const Client = require('../graphql/resolvers/Client');
 const Receipt = require('../graphql/resolvers/Receipt');
 const Store = require('../graphql/resolvers/Store');
+const Owner = require('../graphql/resolvers/Owner');
 
 const resolvers = {
   Query,
@@ -13,11 +14,12 @@ const resolvers = {
   Produce,
   Client,
   Receipt,
-  Store
+  Store,
+  Owner,
 };
 
 const prisma = new PrismaClient();
- 
+
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
   resolvers,

@@ -29,6 +29,20 @@ model Client {
   receipts Receipt[]
 }
 
+model Owner {
+  id         Int    @id @default(autoincrement())
+  first_name String
+  last_name  String
+  age        Int
+  phone      String
+  email      String @unique
+  password   String
+
+  // Relations
+  storeowned Store @relation(fields: [storeid], references: [id])
+  storeid    Int
+}
+
 model Produce {
   id       Int    @id @default(autoincrement())
   name     String

@@ -1,4 +1,27 @@
-const { APP_SECRET, getClientId } = require('../../src/utils')
+const { getClientId } = require('../../src/utils')
+
+getOwners = async (parent, args, context, info) => {
+  const ownerId = getClientId(context);
+
+  return await context
+    .prisma
+    .owner
+    .findMany();
+}
+
+
+getOwner = async (parent, args, context, info) => {
+  const ownerId = getClientId(context);
+
+  return await context
+    .prisma
+    .owner
+    .findOne({
+      where: {
+        id: Number(args.id),
+      },
+    });
+}
 
 getClients = async (parent, args, context, info) => {
   const clientId = getClientId(context);
@@ -97,6 +120,8 @@ getReceipts = async (parent, args, context, info) => {
 
 
 module.exports = {
+  getOwner,
+  getOwners,
   getClients,
   getClient,
   getProduces,
