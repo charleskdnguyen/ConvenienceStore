@@ -34,12 +34,17 @@ model Produce {
   name     String
   quantity Int
   price    Float
-  foodtype String
+  foodtype foodtype
 
   // Relations
   store   Store     @relation(fields: [storeid], references: [id])
   storeid Int
   receiptsContainingProduce Receipt[] // Many to many
+}
+
+enum foodtype {
+  FRUIT
+  VEGETABLE
 }
 
 model Receipt {
