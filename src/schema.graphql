@@ -11,6 +11,14 @@ type Query {
   getReceipts: [Receipt!]!
 }
 
+type Subscription {
+  newClient: Client!
+  newOwner: Owner!
+  newProduce: Produce!
+  newStore: Store!
+  newReceipt: Receipt!
+}
+
 type Mutation {
   signup(
     first_name: String!

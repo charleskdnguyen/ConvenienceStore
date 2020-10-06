@@ -21,6 +21,8 @@ async function signup(parent, args, context, info) {
     clientId: client.id,
   }, APP_SECRET);
 
+  context.pubsub.publish("NEW_CLIENT", client);
+
   return {
     token,
     client,
@@ -53,7 +55,7 @@ async function login(parent, args, context, info) {
 async function addOwner(parent, args, context, info) {
   const password = await bcrypt.hash(args.password, 10);
 
-  return await context.prisma.owner.create({
+  const owner = await context.prisma.owner.create({
     data: {
       first_name: args.first_name,
       last_name: args.last_name,
@@ -68,6 +70,10 @@ async function addOwner(parent, args, context, info) {
       },
     }
   });
+
+  context.pubsub.publish("NEW_OWNER", owner);
+
+  return owner;
 }
 
 async function deleteOwner(parent, args, context, info) {
@@ -150,7 +156,7 @@ async function updateClient(parent, args, context, info) {
 }
 
 async function addProduce(parent, args, context, info) {
-  return await context.prisma.produce.create({
+  const produce = await context.prisma.produce.create({
     data: {
       name: args.name,
       quantity: args.quantity,
@@ -163,6 +169,10 @@ async function addProduce(parent, args, context, info) {
       }
     },
   });
+
+  context.pubsub.publish("NEW_PRODUCE", produce);
+
+  return produce;
 }
 
 async function deleteProduce(parent, args, context, info) {
@@ -194,7 +204,7 @@ async function updateProduce(parent, args, context, info) {
 }
 
 async function addStore(parent, args, context, info) {
-  return await context.prisma.store.create({
+  const store = await context.prisma.store.create({
     data: {
       name: args.name,
       address: args.address,
@@ -205,6 +215,10 @@ async function addStore(parent, args, context, info) {
       province: args.province,
     },
   });
+
+  context.pubsub.publish("NEW_STORE", store);
+
+  return store;
 }
 
 async function deleteStore(parent, args, context, info) {
@@ -257,7 +271,7 @@ async function addReceipt(parent, args, context, info) {
     return { id: produce };
   });
 
-  return await context.prisma.receipt.create({
+  const receipt =  await context.prisma.receipt.create({
     data: {
       subtotal: args.subtotal,
       total: args.total,
@@ -276,6 +290,10 @@ async function addReceipt(parent, args, context, info) {
       },
     },
   });
+
+  context.pubsub.publish("NEW_RECEIPT", receipt);
+
+  return receipt;
 }
 
 async function deleteReceipt(parent, args, context, info) {
