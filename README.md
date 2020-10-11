@@ -7,7 +7,7 @@ The API is created with [GraphQL](https://graphql.org) and [Javascript](https://
 ## Installation
 
 1. Clone the repository
-2. (Recommended) Select the `master` branch
+2. Select the `master` branch (Recommended) 
 3. Install using the command:
 ```bash
 $ npm install
