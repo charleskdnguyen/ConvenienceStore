@@ -18,7 +18,8 @@ $ npx prisma migrate save --experimental
 $ npx prisma migrate up --experimental
 $ npx prisma generate
 ```
-5. Run the server with the command `npm start`
+5. Have a database credential set up
+6. Run the server with the command `npm start`
 
 ## Features
 
