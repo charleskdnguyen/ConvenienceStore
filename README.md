@@ -10,13 +10,13 @@ The API is created with [GraphQL](https://graphql.org) and [Javascript](https://
 2. Select the `master` branch (Recommended) 
 3. Install using the command:
 ```bash
-$ npm install
+  $ npm install
 ```
 4. Migrate the database with the following commands:
 ```bash
-$ npx prisma migrate save --experimental
-$ npx prisma migrate up --experimental
-$ npx prisma generate
+  $ npx prisma migrate save --experimental
+  $ npx prisma migrate up --experimental
+  $ npx prisma generate
 ```
 5. Have a database credential set up
 6. Run the server with the command `npm start`
